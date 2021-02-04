@@ -1,0 +1,43 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+    <!-- I18N configuration -->
+    <script src="../assets/libs/i18next.19.8.7.js"></script>
+    <script src="../assets/libs/i18nextHttpBackend.1.1.0.js"></script>
+    <script src="../assets/libs/i18nextBrowserLanguageDetector.6.0.1.js"></script>
+    <!-- Personalized Scripts -->
+    <script src="../assets/js/mainI18N.js"></script>
+
+</head>
+
+<body>
+    <div style="height: 150px">
+        <button onclick="i18next.changeLanguage('en')">
+            english
+        </button>
+        <button onclick="i18next.changeLanguage('it')">
+            italian
+        </button>
+        <hr />
+        <div lang-id="T_saluto"></div>
+        <div lang-id="T_saluto"></div>
+        <div lang-id="T_saluto"></div>
+        <hr />
+      <!--   <div lang-id="T_info"></div> -->
+
+        <div id="automationTranslation">
+
+        </div>
+    </div>
+
+</body>
+
+</html>
