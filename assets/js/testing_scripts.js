@@ -6,8 +6,5 @@ setInterval(() => {
   let newEl = document.createElement("div");
   newEl.setAttribute("data-lang", "T_info");
   el.append(newEl);
-  console.log("added Element");
+  Logger("added Element");
 }, 7000);
-
-
-

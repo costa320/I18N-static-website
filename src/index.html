@@ -15,10 +15,18 @@
     <!-- Personalized Scripts -->
     <script>
         const initOptI18N = {
-            urlPath: "../I18N/{{lng}}/{{ns}}.json",
-            defaultUrlPath: "",
+            fallbackLng: "it",
+            ns: ["common"],
+            debug: false,
+            defaultNS: "common",
+            backend: {
+                // load from i18next-gitbook repo
+                loadPath: "../I18N/{{lng}}/{{ns}}.json",
+                crossDomain: true,
+            }
         };
     </script>
+    <script src="../assets/js/mainI18N.config.js"></script>
     <script src="../assets/js/mainI18N.js"></script>
     <script src="../assets/js/testing_scripts.js"></script>
 
@@ -34,10 +42,10 @@
             italian
         </button>
         <hr />
+        <input data-lang-alt="T_saluto" data-lang-placeholder="T_info"></input>
         <div data-lang="T_info"></div>
-        <div data-lang="T_info;"></div>
-        <div data-lang="T_info;"></div>
-        <input data-lang="T_info;placeholder"></input>
+        <div data-lang-it="T_info"></div>
+
         <hr />
         <!--   <div data-lang="T_info"></div> -->
 
