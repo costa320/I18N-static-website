@@ -4,7 +4,6 @@
 
 <head>
     <meta charset="utf-8">
-
     <title>The HTML5 Herald</title>
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
@@ -14,11 +13,19 @@
     <script src="../assets/libs/i18nextHttpBackend.1.1.0.js"></script>
     <script src="../assets/libs/i18nextBrowserLanguageDetector.6.0.1.js"></script>
     <!-- Personalized Scripts -->
+    <script>
+        const initOptI18N = {
+            urlPath: "../I18N/{{lng}}/{{ns}}.json",
+            defaultUrlPath: "",
+        };
+    </script>
     <script src="../assets/js/mainI18N.js"></script>
+    <script src="../assets/js/testing_scripts.js"></script>
+
 
 </head>
 
-<body>
+<body onloadstart="SetUrlPath('../I18N/{{lng}}/{{ns}}.json')">
     <div style="height: 150px">
         <button onclick="i18next.changeLanguage('en')">
             english
@@ -27,11 +34,12 @@
             italian
         </button>
         <hr />
-        <div lang-id="T_saluto"></div>
-        <div lang-id="T_saluto"></div>
-        <div lang-id="T_saluto"></div>
+        <div data-lang="T_info"></div>
+        <div data-lang="T_info;"></div>
+        <div data-lang="T_info;"></div>
+        <input data-lang="T_info;placeholder"></input>
         <hr />
-      <!--   <div lang-id="T_info"></div> -->
+        <!--   <div data-lang="T_info"></div> -->
 
         <div id="automationTranslation">
 

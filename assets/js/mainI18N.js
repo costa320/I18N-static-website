@@ -1,5 +1,3 @@
-// import i18next from 'i18next';
-
 /*  server based version */
 i18next
   .use(i18nextHttpBackend)
@@ -11,11 +9,12 @@ i18next
     defaultNS: "common",
     backend: {
       // load from i18next-gitbook repo
-      loadPath: "../I18N/{{lng}}/{{ns}}.json",
+      loadPath: initOptI18N.urlPath,
       crossDomain: true,
     },
   });
 
+/* "../I18N/{{lng}}/{{ns}}.json" */
 function updateContent() {
   stopObserving();
   try {
@@ -23,12 +22,20 @@ function updateContent() {
     let keysToUpdate = Object.keys(
       i18next.getResourceBundle(i18next.language, i18next.ns)
     );
-    /* for each key inside of translation file search for tag (lang-id="keyInsideFile") inside html  */
+    /* for each key inside of translation file search for tag (data-lang="keyInsideFile") inside html  */
     keysToUpdate.forEach((langID) => {
       /* get all elements with this lang id */
-      let elList = document.querySelectorAll(`[lang-id='${langID}']`);
+      let elList = document.querySelectorAll(`[data-lang^=${langID}]`);
       elList.forEach((el) => {
-        el.innerHTML = i18next.t(`${langID}`);
+        /* 1st element is key, 2nd element is attribute to change id it is present */
+        let tArr = el.dataset.lang.split(";");
+        if (tArr.length > 1 && tArr[1]) {
+          /* there are options */
+          el[tArr[1]] = i18next.t(`${langID}`);
+        } else {
+          /* there are no optional parameters */
+          el.innerHTML = i18next.t(`${langID}`);
+        }
       });
     });
 
@@ -37,6 +44,7 @@ function updateContent() {
         i18next.language
       }" --> loaded languages: "${i18next.languages.join(", ")}"`
     );
+
     startObserving();
   } catch (err) {
     throw new Error(err);
@@ -73,9 +81,8 @@ function Logger(text) {
 
 setTimeout(() => {
   let el = document.getElementById("automationTranslation");
-
   let newEl = document.createElement("div");
-  newEl.setAttribute("lang-id", "T_info");
+  newEl.setAttribute("data-lang", "T_info");
   el.append(newEl);
   console.log("added Element");
 }, 7000);
@@ -102,10 +109,11 @@ function startObserving() {
     subtree: true,
     attributeOldValue: true,
     attributes: true,
-    attributeFilter: ["lang-id"],
+    attributeFilter: ["data-lang"],
   });
   observing = true;
 }
+
 function stopObserving() {
   console.log("STOPED Observing...");
   if (observing) mutationObserver.disconnect();
