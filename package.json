@@ -22,7 +22,6 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "webpack",
     "start": "webpack serve --env devServer",
     "build": "webpack --mode production"
   },
