@@ -1,6 +1,6 @@
 {
   "name": "i18n-static-website",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "I18N-static-website",
   "main": "src/index.js",
   "dependencies": {
@@ -9,6 +9,14 @@
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.2",
     "dotenv": "^8.2.0",
+    "grunt": "^1.3.0",
+    "grunt-bump": "^0.8.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^3.0.0",
+    "grunt-contrib-rename": "^0.2.0",
+    "grunt-contrib-uglify": "^5.0.0",
+    "grunt-move": "^1.0.3",
     "html-webpack-plugin": "^5.0.0",
     "i18next": "^19.8.7",
     "i18next-browser-languagedetector": "^6.0.1",
@@ -23,7 +31,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "webpack serve --env devServer",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production && grunt bump:minor && grunt copy:I18Locales"
   },
   "repository": {
     "type": "git",
