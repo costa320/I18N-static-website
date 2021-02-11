@@ -43,42 +43,59 @@ module.exports = function (grunt) {
           },
         ],
       },
-      /*         demoMain: {
-          files: [
-            { expand: true, src: "assets/*", dest: "demo/" },
-            { expand: true, src: "loader/*", dest: "demo/" },
-            {
-              expand: true,
-              cwd: "dist/<%= pkg.version %>/",
-              src: "**",
-              dest: "demo/build/",
-            },
-          ],
-        },
-        docsInBuild: {
-          files: [{ expand: true, src: "doc/**", dest: "build/" }],
-        },
-        newBuildInDist: {
-          files: [
-            {
-              expand: true,
-              src: "build/**",
-              dest: "dist/",
-            },
-          ],
-        }, */
+      /*  demoMain: {
+        files: [
+          { expand: true, src: "assets/*", dest: "demo/" },
+          { expand: true, src: "loader/*", dest: "demo/" },
+          {
+            expand: true,
+            cwd: "dist/<%= pkg.version %>/",
+            src: "**",
+            dest: "demo/build/",
+          },
+        ],
+      },
+      docsInBuild: {
+        files: [{ expand: true, src: "doc/**", dest: "build/" }],
+      },
+      newBuildInDist: {
+        files: [
+          {
+            expand: true,
+            src: "build/**",
+            dest: "dist/",
+          },
+        ],
+      }, */
     },
     clean: {
       /* deleteDist: ["dist_<%= pkg.version %>"], */
     },
     rename: {
-      /* demoFolderVersion: {
+      /*  demoFolderVersion: {
           files: [
             {
               src: ["demo/version_*.md"],
               dest: "demo/version_<%= pkg.version %>.md",
             },
-          ],*/
+          ],
+        },
+        newBuildVersionUpdate: {
+          files: [
+            {
+              src: "./dist/build",
+              dest: "./dist/<%= pkg.version %>",
+            },
+          ],
+        },
+        newDocVersionUpdate: {
+          files: [
+            {
+              src: "./docs/doc",
+              dest: "./docs/<%= pkg.version %>",
+            },
+          ],
+        }, */
     },
   });
 
