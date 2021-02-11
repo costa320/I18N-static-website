@@ -1,23 +1,14 @@
-var initialConfig;
-/* END CONFIGURATION */
+/* PERSONALIZED CONFIG */
+import i18next from "./i18next";
+import { AAttr } from "./config/mainI18N.config";
+/* UTILS */
+import { Logger } from "./utils/utils";
+import { _setInterval } from "./config/testing_scripts";
 
-/* INITIALIZATION */
-try {
-  /* if it cant retriev enough configuration then will retry with "inizializationDefault" */
-  initialConfig = initOptI18N;
-  i18next
-    .use(i18nextHttpBackend)
-    .use(i18nextBrowserLanguageDetector)
-    .init(initialConfig);
-} catch (err) {
-  initialConfig = inizializationDefault;
-  i18next
-    .use(i18nextHttpBackend)
-    .use(i18nextBrowserLanguageDetector)
-    .init(initialConfig);
-}
+/* TESTING PURPOSE */
+_setInterval();
 
-Logger(`CONFIGURATION IN USE: ${initialConfig}`);
+/* TESTING PURPOSE */
 
 function updateContent() {
   stopObserving();
@@ -31,7 +22,6 @@ function updateContent() {
       /* get all elements with this lang id and this kind scroll arr AAttr*/
 
       let elList;
-
       /* 1st search for default attribute so "none" */
       elList = document.querySelectorAll(`[data-lang^=${langID}]`);
       translateListElements(elList, langID);
@@ -68,7 +58,7 @@ function translateListElements(elementList = [], langID, OptionalAttr) {
   });
 }
 
-function changeLng(lng) {
+export function changeLng(lng) {
   i18next.changeLanguage(lng);
 }
 
@@ -83,7 +73,8 @@ i18next.on("languageChanged", (lang) => {
 });
 
 i18next.on("loaded", function (loaded) {
-  Logger("new resource loaded:" + loaded);
+  Logger("new resource loaded: ");
+  Logger(loaded);
 });
 
 /* END I18N EVENTS  */
@@ -121,11 +112,4 @@ function stopObserving() {
   Logger("STOPED Observing...");
   if (observing) mutationObserver.disconnect();
   observing = false;
-}
-
-function Logger(message) {
-  /* if debug is set to be true then logg  */
-  if (initialConfig.debug) {
-    console.log(message);
-  }
 }

@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="utf-8">
@@ -8,37 +8,28 @@
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
 
-    <!-- I18N configuration -->
-    <script src="../assets/libs/i18next.19.8.7.js"></script>
-    <script src="../assets/libs/i18nextHttpBackend.1.1.0.js"></script>
-    <script src="../assets/libs/i18nextBrowserLanguageDetector.6.0.1.js"></script>
     <!-- Personalized Scripts -->
     <script>
         const initOptI18N = {
-            fallbackLng: "it",
-            ns: ["common"],
-            debug: false,
-            defaultNS: "common",
+            lng: "it",
+            fallbackLng: 'it',
+            debug: true,
+            whiteList: ['it', 'en'],
             backend: {
                 // load from i18next-gitbook repo
-                loadPath: "../I18N/{{lng}}/{{ns}}.json",
+                loadPath: "./locales/{{lng}}/{{ns}}.json",
                 crossDomain: true,
             }
         };
     </script>
-    <script src="../assets/js/mainI18N.config.js"></script>
-    <script src="../assets/js/mainI18N.js"></script>
-    <script src="../assets/js/testing_scripts.js"></script>
-
-
 </head>
 
-<body onloadstart="SetUrlPath('../I18N/{{lng}}/{{ns}}.json')">
+<body>
     <div style="height: 150px">
-        <button onclick="i18next.changeLanguage('en')">
+        <button onClick="LIBRARY.changeLng('en')">
             english
         </button>
-        <button onclick="i18next.changeLanguage('it')">
+        <button onClick="LIBRARY.changeLng('it')">
             italian
         </button>
         <hr />
