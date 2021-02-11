@@ -4,18 +4,19 @@ var initialConfig;
 /* INITIALIZATION */
 try {
   /* if it cant retriev enough configuration then will retry with "inizializationDefault" */
-  initialConfig = initOptI18N;
+  initialConfig = CookieLngDetection(initOptI18N);
   i18next
     .use(i18nextHttpBackend)
     .use(i18nextBrowserLanguageDetector)
     .init(initialConfig);
 } catch (err) {
-  initialConfig = inizializationDefault;
+  initialConfig = CookieLngDetection(inizializationDefault);
   i18next
     .use(i18nextHttpBackend)
     .use(i18nextBrowserLanguageDetector)
     .init(initialConfig);
 }
+/* END INITIALIZATION */
 
 Logger(`CONFIGURATION IN USE: ${initialConfig}`);
 
@@ -125,7 +126,59 @@ function stopObserving() {
 
 function Logger(message) {
   /* if debug is set to be true then logg  */
-  if (initialConfig.debug) {
+  if (initialConfig && initialConfig.debug) {
     console.log(message);
+  }
+}
+
+/* MIDDLEWARES */
+function CookieLngDetection(configuration) {
+  let lng = getCookie("sLang");
+  /*  1) search for language in passed configuration 
+      2) search for language in cookies
+      3) search for language using browser language detector of i18next
+  */
+  if (configuration && configuration.lng) {
+    return configuration;
+  } else if (lng) {
+    let newConfiguration = configuration;
+    newConfiguration.lng = lng;
+    return newConfiguration;
+  } else {
+    return configuration;
+  }
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == " ") {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function setCookie(cName, cValue) {
+  var d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  var expires = "expires=" + d.toUTCString();
+  document.cookie = cName + "=" + cValue + ";" + expires + ";path=/";
+}
+
+function checkCookie() {
+  var user = getCookie("username");
+  if (user != "") {
+    alert("Welcome again " + user);
+  } else {
+    user = prompt("Please enter your name:", "");
+    if (user != "" && user != null) {
+      setCookie("username", user, 365);
+    }
   }
 }
