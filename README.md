@@ -2,7 +2,7 @@
 
 I18N-static-website
 
-##basic start-up in developer mode and in distribution mode
+## basic start-up in developer mode and in distribution mode
 
 ```node
 $ npm run start
