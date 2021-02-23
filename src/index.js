@@ -3,14 +3,20 @@ import i18next from "./i18next";
 import { AAttr } from "./config/mainI18N.config";
 /* UTILS */
 import { Logger } from "./utils/utils";
-import { _setInterval } from "./config/testing_scripts";
+import {
+  _setInterval,
+  _PerformanceTests,
+  _dynamicElements,
+} from "./config/testing_scripts";
 
 /* TESTING PURPOSE */
 _setInterval();
+_dynamicElements(30);
 
 /* TESTING PURPOSE */
 
 function updateContent() {
+  _PerformanceTests("start");
   stopObserving();
   try {
     /* get keys (id's) inside bundle already loaded */
@@ -42,6 +48,7 @@ function updateContent() {
   } catch (err) {
     throw new Error(err);
   }
+  _PerformanceTests("stop");
 }
 
 function translateListElements(elementList = [], langID, OptionalAttr) {

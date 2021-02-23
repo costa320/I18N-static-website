@@ -15,14 +15,14 @@ try {
   initialConfig = initOptI18N;
   i18next
     .use(HttpApi)
-/*     .use(LanguageDetector) */
+    /*     .use(LanguageDetector) */
     .init(initialConfig)
     .then((t) => {});
 } catch (err) {
   initialConfig = inizializationDefault;
   i18next
     .use(HttpApi)
-/*     .use(LanguageDetector) */
+    /*     .use(LanguageDetector) */
     .init(initialConfig)
     .then((t) => {});
 }
