@@ -13,9 +13,9 @@ module.exports = (env) => {
       : "./src/index.js",
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: "js/library.bundle.js",
+      filename: "js/I18N.bundle.js",
       /* EXPOSE BUNDLE TO OUTSIDE CODE */
-      library: "LIBRARY",
+      library: "I18N",
       libraryTarget: "var",
     },
     devtool: "source-map",
