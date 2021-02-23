@@ -10,15 +10,15 @@ $ npm run build
 
 ```
 
-##It will interact with all kind of translation tags like
+## It will interact with all kind of translation tags like
 
 - [x] data-lang (for default usage)
 - [x] data-lang-title (for optional attribute settings usage)
 - [x] data-lang-title-alt ( for advanced usage )
 
-#Usage
+# Usage
 
-##Basic Initialization
+## Basic Initialization
 -import script in your page
 
 ```js
@@ -43,15 +43,15 @@ $ npm run build
     </script>
 ```
 
-##How to Use Functions
+## How to Use Functions
 
 -You can access function using I18N name
 
 ```js
 <button onClick="I18N.changeLng('en')">english</button>
 ```
-
-###Basic case
+## How to get translation running
+### Basic case
 
 ```html
 -html
@@ -61,7 +61,7 @@ $ npm run build
 <div data-lang="keyForTranslation">Hi in English</div>
 ```
 
-###Medium case
+### Medium case
 
 ```html
 -html
@@ -89,7 +89,7 @@ $ npm run build
 </div>
 ```
 
-###Advanced case
+### Advanced case
 
 ```html
 -html
