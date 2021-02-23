@@ -1,5 +1,5 @@
 /* PERSONALIZED CONFIG */
-import i18next from "./i18next";
+import i18next, { initialConfig } from "./i18next";
 /* UTILS */
 import { Logger } from "./utils/utils";
 import {
@@ -8,9 +8,11 @@ import {
   _dynamicElements,
 } from "./config/testing_scripts";
 
-/* TESTING PURPOSE */
-_setInterval();
-_dynamicElements(300);
+if (initialConfig.debug) {
+  /* TESTING PURPOSE */
+  _setInterval();
+  _dynamicElements(30);
+}
 
 /* TESTING PURPOSE */
 
@@ -18,7 +20,6 @@ function updateContent() {
   _PerformanceTests("start");
   stopObserving();
   try {
-
     /* gets all elements that needs some kind of translation */
     let elList = document.querySelectorAll(`[data-lang]`);
 

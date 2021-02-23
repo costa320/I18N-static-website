@@ -1,6 +1,6 @@
 {
   "name": "i18n-static-website",
-  "version": "1.5.0",
+  "version": "1.7.0",
   "description": "I18N-static-website",
   "main": "src/index.js",
   "dependencies": {
@@ -21,7 +21,6 @@
     "i18next": "^19.8.7",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-http-backend": "^1.1.0",
-    "jquery": "^3.5.1",
     "sass": "^1.32.7",
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",

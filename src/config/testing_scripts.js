@@ -1,4 +1,5 @@
 import { Logger } from "../utils/utils";
+import { initialConfig } from "../i18next";
 
 export function _dynamicElements(numElements = 0) {
   if (numElements) {
@@ -28,16 +29,18 @@ export function _setInterval() {
 }
 
 export function _PerformanceTests(_event = "start", logText) {
-  switch (_event) {
-    case "start":
-      console.time("PerformanceTest", "Performance Test Started...");
-      break;
-    case "log":
-      console.timeLog("PerformanceTest", logText);
-      break;
-    case "stop":
-      console.timeEnd("PerformanceTest", "Performance Test Ended...");
-      break;
+  if (initialConfig.debug) {
+    switch (_event) {
+      case "start":
+        console.time("PerformanceTest", "Performance Test Started...");
+        break;
+      case "log":
+        console.timeLog("PerformanceTest", logText);
+        break;
+      case "stop":
+        console.timeEnd("PerformanceTest", "Performance Test Ended...");
+        break;
+    }
   }
 }
 
