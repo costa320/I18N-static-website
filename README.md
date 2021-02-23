@@ -19,6 +19,7 @@ $ npm run build
 # Usage
 
 ## Basic Initialization
+
 -import script in your page
 
 ```js
@@ -50,29 +51,39 @@ $ npm run build
 ```js
 <button onClick="I18N.changeLng('en')">english</button>
 ```
+
 ## How to get translation running
+
 ### Basic case
 
-```html
--html
-<div data-lang="keyForTranslation"></div>
+#### Input HTML
 
--output
+```html
+<div data-lang="keyForTranslation"></div>
+```
+
+#### Output HTML
+
+```html
 <div data-lang="keyForTranslation">Hi in English</div>
 ```
 
 ### Medium case
 
+#### Input HTML
+
 ```html
--html
 <div id="1" data-lang data-lang-title="keyForTranslation"></div>
 <div
   id="2"
   data-lang="keyForTranslation"
   data-lang-title="keyForTranslation"
 ></div>
+```
 
--output
+#### Output HTML
+
+```html
 <div
   id="1"
   data-lang
@@ -91,8 +102,9 @@ $ npm run build
 
 ### Advanced case
 
+#### Input HTML
+
 ```html
--html
 <div id="1" data-lang data-lang-title="keyForTranslation"></div>
 <div
   id="2"
@@ -106,8 +118,11 @@ $ npm run build
   data-lang-title="keyForTranslation"
   data-lang-alt="keyForTranslation"
 ></div>
+```
 
--output
+#### Output HTML
+
+```html
 <div
   id="1"
   data-lang
