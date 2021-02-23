@@ -1,6 +1,6 @@
 {
   "name": "i18n-static-website",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "I18N-static-website",
   "main": "src/index.js",
   "dependencies": {
