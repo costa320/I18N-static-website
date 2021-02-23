@@ -1,4 +1,5 @@
 import { Logger } from "../utils/utils";
+import { initialConfig } from "../i18next";
 
 export function _dynamicElements(numElements = 0) {
   if (numElements) {
@@ -17,7 +18,7 @@ export function _dynamicElements(numElements = 0) {
 }
 
 export function _setInterval() {
-  setTimeout(() => {
+  setInterval(() => {
     let el = document.getElementById("automationTranslation");
 
     let newEl = document.createElement("div");
@@ -27,16 +28,19 @@ export function _setInterval() {
   }, 7000);
 }
 
-var t0, t1;
-export function _PerformanceTests(_event = "start") {
-  switch (_event) {
-    case "start":
-      t0 = performance.now();
-      break;
-    case "stop":
-      t1 = performance.now();
-      Logger("Update CONTENT TOOK " + (t1 - t0) + " milliseconds.");
-      break;
+export function _PerformanceTests(_event = "start", logText) {
+  if (initialConfig.debug) {
+    switch (_event) {
+      case "start":
+        console.time("PerformanceTest", "Performance Test Started...");
+        break;
+      case "log":
+        console.timeLog("PerformanceTest", logText);
+        break;
+      case "stop":
+        console.timeEnd("PerformanceTest", "Performance Test Ended...");
+        break;
+    }
   }
 }
 

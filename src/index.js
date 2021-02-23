@@ -1,6 +1,5 @@
 /* PERSONALIZED CONFIG */
-import i18next from "./i18next";
-import { AAttr } from "./config/mainI18N.config";
+import i18next, { initialConfig } from "./i18next";
 /* UTILS */
 import { Logger } from "./utils/utils";
 import {
@@ -9,9 +8,11 @@ import {
   _dynamicElements,
 } from "./config/testing_scripts";
 
-/* TESTING PURPOSE */
-_setInterval();
-_dynamicElements(30);
+if (initialConfig.debug) {
+  /* TESTING PURPOSE */
+  _setInterval();
+  _dynamicElements(30);
+}
 
 /* TESTING PURPOSE */
 
@@ -19,23 +20,11 @@ function updateContent() {
   _PerformanceTests("start");
   stopObserving();
   try {
-    /* get keys (id's) inside bundle already loaded */
-    let keysToUpdate = Object.keys(
-      i18next.getResourceBundle(i18next.language, i18next.ns)
-    );
-    /* for each key inside of translation file search for tag (data-lang="keyInsideFile") inside html  */
-    keysToUpdate.forEach((langID) => {
-      /* get all elements with this lang id and this kind scroll arr AAttr*/
+    /* gets all elements that needs some kind of translation */
+    let elList = document.querySelectorAll(`[data-lang]`);
 
-      let elList;
-      /* 1st search for default attribute so "none" */
-      elList = document.querySelectorAll(`[data-lang^=${langID}]`);
-      translateListElements(elList, langID);
-      /* 2nd search for optional attributes, those declared on row on top of the file, called "AAttr" */
-      AAttr.forEach((attr) => {
-        elList = document.querySelectorAll(`[data-lang-${attr}^=${langID}]`);
-        translateListElements(elList, langID, attr);
-      });
+    elList.forEach((elem, i) => {
+      manageElementDataAttribute(elem, "lang");
     });
 
     Logger(
@@ -51,18 +40,41 @@ function updateContent() {
   _PerformanceTests("stop");
 }
 
-function translateListElements(elementList = [], langID, OptionalAttr) {
-  elementList.forEach((el) => {
-    /* 1st element is key, 2nd element is attribute to change id it is present */
-    let tArr = el.dataset.lang;
-    if (OptionalAttr) {
-      /* there are options */
-      el[OptionalAttr] = i18next.t(`${langID}`);
+/* this function will decide how the element will be translated and managed */
+function manageElementDataAttribute(elem, datasetKey) {
+  /* get clean dataset of the element */
+  let dataset = sortElementDataAttribute(elem, datasetKey);
+  Object.keys(dataset).forEach((key) => {
+    if (key === datasetKey) {
+      /* default case es. data-lang */
+      elem.innerHTML = i18next.t(`${dataset[key]}`);
     } else {
-      /* there are no optional parameters */
-      el.innerHTML = i18next.t(`${langID}`);
+      /* advanced case es. data-lang-alt */
+
+      /* try to split name so it could be managed es. langAlt => [lang ,Alt]*/
+      /* if there are more then 2 attributes es. [lang,Alt,titol]  create all attributes*/
+
+      let attributes = key.split(/(?=[A-Z])/);
+
+      /* try to create all attributes one by one */
+      attributes.forEach((OptionalAttr, i) => {
+        if (i !== 0) {
+          elem[OptionalAttr.toLowerCase()] = i18next.t(`${dataset[key]}`);
+        }
+      });
     }
   });
+}
+
+function sortElementDataAttribute(elem, datasetKey) {
+  let dataset = Object.keys(elem.dataset).filter((dSet) => {
+    return dSet.substring(0, datasetKey.length) === datasetKey;
+  });
+  let purifiedDataset = {};
+  dataset.forEach((langKey) => {
+    purifiedDataset[langKey] = elem.dataset[langKey];
+  });
+  return purifiedDataset;
 }
 
 export function changeLng(lng) {

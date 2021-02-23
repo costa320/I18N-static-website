@@ -13,7 +13,7 @@
         const initOptI18N = {
             lng: "it",
             fallbackLng: 'it',
-            debug: true,
+            debug: false,
             whiteList: ['it', 'en'],
             backend: {
                 // load from i18next-gitbook repo
@@ -26,14 +26,14 @@
 
 <body>
     <div style="height: 150px">
-        <button onClick="LIBRARY.changeLng('en')">
+        <button onClick="I18N.changeLng('en')">
             english
         </button>
-        <button onClick="LIBRARY.changeLng('it')">
+        <button onClick="I18N.changeLng('it')">
             italian
         </button>
         <hr />
-        <input data-lang-alt="T_saluto" data-lang-placeholder="T_info"></input>
+        <input data-cane="" data-lang data-lang-alt="T_saluto" data-lang-placeholder="T_info"></input>
         <div data-lang="T_info"></div>
         <div data-lang-it="T_info"></div>
 
