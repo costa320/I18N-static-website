@@ -17,7 +17,7 @@ export function _dynamicElements(numElements = 0) {
 }
 
 export function _setInterval() {
-  setTimeout(() => {
+  setInterval(() => {
     let el = document.getElementById("automationTranslation");
 
     let newEl = document.createElement("div");
@@ -27,15 +27,16 @@ export function _setInterval() {
   }, 7000);
 }
 
-var t0, t1;
-export function _PerformanceTests(_event = "start") {
+export function _PerformanceTests(_event = "start", logText) {
   switch (_event) {
     case "start":
-      t0 = performance.now();
+      console.time("PerformanceTest", "Performance Test Started...");
+      break;
+    case "log":
+      console.timeLog("PerformanceTest", logText);
       break;
     case "stop":
-      t1 = performance.now();
-      Logger("Update CONTENT TOOK " + (t1 - t0) + " milliseconds.");
+      console.timeEnd("PerformanceTest", "Performance Test Ended...");
       break;
   }
 }
