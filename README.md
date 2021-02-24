@@ -21,7 +21,7 @@ $ npm run build
 
 ## Basic Initialization
 
-> Note: the attribute *data-lang* needs to be present in medium and advanced use-case to work properly
+> Note: the attribute "data-lang" needs to be present in medium and advanced use-case to work properly
 
 -import script in your page
 
