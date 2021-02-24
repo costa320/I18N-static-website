@@ -1,0 +1,11 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><title>The HTML5 Herald</title><meta name="description" content="The HTML5 Herald"><meta name="author" content="SitePoint"><script>const initOptI18N = {
+            lng: "it",
+            fallbackLng: 'it',
+            debug: true,
+            whiteList: ['it', 'en'],
+            backend: {
+                // load from i18next-gitbook repo
+                loadPath: "./locales/{{lng}}/{{ns}}.json",
+                crossDomain: true,
+            }
+        };</script><script defer="defer" src="js/I18N.bundle.js"></script></head><body><div style="height: 150px"><button onclick="I18N.changeLng('en')">english</button> <button onclick="I18N.changeLng('it')">italian</button><hr/><input data-lang data-lang-alt="T_saluto" data-lang-placeholder="T_info"><input data-lang data-lang-alt-placeholder="T_saluto"><div data-lang="T_info"></div><div data-lang-it="T_info"></div><hr/><div id="automationTranslation"></div></div></body></html>
