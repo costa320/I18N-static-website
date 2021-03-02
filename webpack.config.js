@@ -2,7 +2,11 @@ require("dotenv").config;
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
-/* FOR EXPOSE LIBRARY IN DEV MODE */
+let plugins = [
+  new HtmlWebpackPlugin({
+    template: path.resolve(__dirname, "src", "index.html"),
+  }),
+];
 
 module.exports = (env) => {
   const { devServer = false } = env;
@@ -31,11 +35,7 @@ module.exports = (env) => {
       port: "3008",
       injectClient: false,
     },
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, "src", "index.html"),
-      }),
-    ],
+    plugins: plugins,
     module: {
       rules: [
         {
@@ -52,6 +52,12 @@ module.exports = (env) => {
           use: ["babel-loader"],
         },
       ],
+    },
+    optimization: {
+      minimize: false,
+      mangleWasmImports: false,
+      mangleExports: false,
+      concatenateModules: false,
     },
   };
 };

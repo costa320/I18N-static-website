@@ -1,6 +1,6 @@
 {
   "name": "i18n-static-website",
-  "version": "2.1.0",
+  "version": "2.9.0",
   "description": "I18N-static-website",
   "main": "src/index.js",
   "dependencies": {
@@ -19,7 +19,6 @@
     "grunt-move": "^1.0.3",
     "html-webpack-plugin": "^5.0.0",
     "i18next": "^19.8.7",
-    "i18next-browser-languagedetector": "^6.0.1",
     "i18next-http-backend": "^1.1.0",
     "sass": "^1.32.7",
     "sass-loader": "^11.0.1",
@@ -31,7 +30,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "webpack serve --env devServer",
-    "build": "webpack --mode production && grunt bump:minor && grunt copy:I18Locales"
+    "build": "webpack && grunt bump:minor && grunt copy:I18Locales"
   },
   "repository": {
     "type": "git",
