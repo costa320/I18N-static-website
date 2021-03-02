@@ -1,5 +1,6 @@
 /* PERSONALIZED CONFIG */
 import i18next, { initialConfig } from "./i18next";
+import { manageElementDataAttribute } from "./attributeManager";
 /* UTILS */
 import { Logger } from "./utils/utils";
 import {
@@ -30,7 +31,7 @@ function updateContent() {
     Logger(
       `detected user language: "${
         i18next.language
-      }" --> loaded languages: "${i18next.languages.join(", ")}"`
+      }" --> loaded languages: "${initialConfig.whiteList.join(", ")}"`
     );
 
     startObserving();
@@ -40,43 +41,6 @@ function updateContent() {
   _PerformanceTests("stop");
 }
 
-/* this function will decide how the element will be translated and managed */
-function manageElementDataAttribute(elem, datasetKey) {
-  /* get clean dataset of the element */
-  let dataset = sortElementDataAttribute(elem, datasetKey);
-  Object.keys(dataset).forEach((key) => {
-    if (key === datasetKey) {
-      /* default case es. data-lang */
-      elem.innerHTML = i18next.t(`${dataset[key]}`);
-    } else {
-      /* advanced case es. data-lang-alt */
-
-      /* try to split name so it could be managed es. langAlt => [lang ,Alt]*/
-      /* if there are more then 2 attributes es. [lang,Alt,titol]  create all attributes*/
-
-      let attributes = key.split(/(?=[A-Z])/);
-
-      /* try to create all attributes one by one */
-      attributes.forEach((OptionalAttr, i) => {
-        if (i !== 0) {
-          elem[OptionalAttr.toLowerCase()] = i18next.t(`${dataset[key]}`);
-        }
-      });
-    }
-  });
-}
-
-function sortElementDataAttribute(elem, datasetKey) {
-  let dataset = Object.keys(elem.dataset).filter((dSet) => {
-    return dSet.substring(0, datasetKey.length) === datasetKey;
-  });
-  let purifiedDataset = {};
-  dataset.forEach((langKey) => {
-    purifiedDataset[langKey] = elem.dataset[langKey];
-  });
-  return purifiedDataset;
-}
-
 export function changeLng(lng) {
   i18next.changeLanguage(lng);
 }
@@ -84,7 +48,7 @@ export function changeLng(lng) {
 /* I18N EVENTS */
 i18next.on("initialized", function (options) {
   // init set content
-  updateContent();
+  /* startObserving(); */
 });
 
 i18next.on("languageChanged", (lang) => {
