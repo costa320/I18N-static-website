@@ -7,7 +7,13 @@ export function manageElementDataAttribute(elem, datasetKey) {
   Object.keys(dataset).forEach((key) => {
     if (key === datasetKey) {
       /* default case es. data-lang */
-      defaultCase(elem, dataset, key);
+      let opt = dataset[key].split(";");
+      /* if there are some options passed like position */
+      if (opt.length > 1) {
+        /* clean the dataset(eg. T_saluto;1) and parseInt optional position */
+        dataset[key] = dataset[key].split(";")[0];
+        defaultCase(elem, dataset, key, parseInt(opt[1]));
+      } else defaultCase(elem, dataset, key, 0);
     } else {
       /* advanced case es. data-lang-alt */
       advancedCase(elem, dataset, key);
@@ -15,24 +21,27 @@ export function manageElementDataAttribute(elem, datasetKey) {
   });
 }
 
-function defaultCase(elem, dataset, key) {
-  /* save all the children and paste them after */
+function defaultCase(elem, dataset, key, position) {
+  /* by using position, the translation will be positioned accordingly */
+  let nodeList = [...elem.querySelectorAll("*")];
 
-  /* get outerHtml of this elem, then try to split it by optional posChar, to understand where to position text properly */
-
-  if (arrElements.length > 1) {
-    /* there is a default case with optional posChar */
-    /* get all html from this element, then  replace optional posChar with translation, then inject it inside this elem */
-    let newInnerHtml = elem.innerHTML.replace(
-      initialConfig.posChar,
-      i18next.t(`${dataset[key]}`)
-    );
-    elem.innerHTML = newInnerHtml;
-  } else {
-    /* optional posChar ({{{}}}) was not found inside this element so put the translation as first element */
-    /* get all underlying nodes from this elem */
-    let nodeList = elem.querySelectorAll("*");
+  if (position === 0) {
+    /* translation will be positioned as first node inside elem herarchy */
     elem.textContent = i18next.t(`${dataset[key]}`);
+    nodeList.forEach((node) => elem.appendChild(node));
+  } else {
+    /* translation will be positioned as position option is set */
+    /* split the nodeList present now */
+    let start = nodeList.slice(0, position);
+    let end = nodeList.slice(position, nodeList.length);
+    /* create a txt node with the translation */
+    let txtNode = document.createTextNode(i18next.t(`${dataset[key]}`));
+    start.push(txtNode);
+    /* put all together */
+    nodeList = start.concat(end);
+    /* clean the element */
+    elem.textContent = "";
+    /* add all nodes to the dome in order */
     nodeList.forEach((node) => elem.appendChild(node));
   }
 }
