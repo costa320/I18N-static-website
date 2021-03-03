@@ -54,10 +54,14 @@ module.exports = (env) => {
       ],
     },
     optimization: {
+      /*    makes bundle more readable
+       moduleIds: "named",
+      chunkIds: "named",
+      nodeEnv: "none",
       minimize: false,
       mangleWasmImports: false,
       mangleExports: false,
-      concatenateModules: false,
+      concatenateModules: false, */
     },
   };
 };
