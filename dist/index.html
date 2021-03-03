@@ -1,11 +1,71 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><title>The HTML5 Herald</title><meta name="description" content="The HTML5 Herald"><meta name="author" content="SitePoint"><script>const initOptI18N = {
-            lng: "it",
+<!doctype html>
+
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+    <!-- Personalized Scripts -->
+    <script>
+        const initOptI18N = {
+            /* lng: "it", */
             fallbackLng: 'it',
             debug: true,
             whiteList: ['it', 'en'],
+            ns: "translation",
             backend: {
                 // load from i18next-gitbook repo
                 loadPath: "./locales/{{lng}}/{{ns}}.json",
                 crossDomain: true,
-            }
-        };</script><script defer="defer" src="js/I18N.bundle.js"></script></head><body><div style="height: 150px"><button onclick="I18N.changeLng('en')">english</button> <button onclick="I18N.changeLng('it')">italian</button><hr/><input data-lang data-lang-alt="T_saluto" data-lang-placeholder="T_info"><input data-lang data-lang-alt-placeholder="T_saluto"><div data-lang="T_info"></div><div data-lang-it="T_info"></div><hr/><div id="automationTranslation"></div></div></body></html>
+            },
+        };
+    </script>
+<script defer src="js/I18N.bundle.js"></script></head>
+
+<body>
+    <div style="height: 150px;">
+        <button onClick="I18N.changeLng('en')">
+            english
+        </button>
+        <button onClick="I18N.changeLng('it')">
+            italian
+        </button>
+        <!--         <hr />
+        <input data-lang data-lang-alt="T_saluto" data-lang-placeholder="T_info"></input>
+        <input data-lang data-lang-alt-placeholder="T_saluto"></input>
+        <div data-lang="T_info"></div>
+
+        <hr /> -->
+
+        <div data-lang="T_saluto" style="border:1px solid green">
+            <div style="border:1px solid green">Testo da non tradurre 1</div>
+            TESTO DA TRADURRE
+            <div style="border:1px solid green">Testo da non tradurre 2</div>
+        </div>
+
+        <hr />
+
+        <div data-lang="T_saluto;1" style="border:1px solid green">
+            <div style="border:1px solid green">Testo da non tradurre 1</div>
+            TESTO DA TRADURRE
+            <div style="border:1px solid green">Testo da non tradurre 2</div>
+        </div>
+
+        <!--        <div data-lang="T_info" style="border:1px solid red" id="automationTranslation">
+
+            <div style="border:1px solid blue" data-lang="T_saluto">T_saluto</div>
+            Testo da sostituire con la traduzione
+            <div style="border:1px solid blue" data-lang="T_saluto">T_saluto</div>
+
+        </div> -->
+
+
+
+    </div>
+
+</body>
+
+</html>

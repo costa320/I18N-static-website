@@ -1,31 +1,34 @@
 import { Logger } from "../utils/utils";
 import { initialConfig } from "../i18next";
 
+let autTran = document.getElementById("automationTranslation");
 export function _dynamicElements(numElements = 0) {
   if (numElements) {
     var msgContainer = document.createDocumentFragment();
 
-    for (var i = 0; i < 30; i++) {
-      msgContainer.appendChild(
-        create("option", {
-          "data-lang": "T_info",
-          id: i,
-        })
-      );
+    if (autTran) {
+      for (var i = 0; i < 10; i++) {
+        msgContainer.appendChild(
+          create("option", {
+            "data-lang": "T_info",
+            id: i,
+          })
+        );
+      }
+      autTran.appendChild(msgContainer);
     }
-    document.getElementById("automationTranslation").appendChild(msgContainer);
   }
 }
 
 export function _setInterval() {
-  setInterval(() => {
-    let el = document.getElementById("automationTranslation");
-
-    let newEl = document.createElement("div");
-    newEl.setAttribute("data-lang", "T_info");
-    el.append(newEl);
-    Logger("added Element");
-  }, 7000);
+  if (autTran) {
+    setInterval(() => {
+      let newEl = document.createElement("div");
+      newEl.setAttribute("data-lang", "T_info");
+      autTran.append(newEl);
+      Logger("added Element");
+    }, 7000);
+  }
 }
 
 export function _PerformanceTests(_event = "start", logText) {
