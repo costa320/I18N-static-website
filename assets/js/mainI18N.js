@@ -5,21 +5,17 @@ var initialConfig;
 try {
   /* if it cant retriev enough configuration then will retry with "inizializationDefault" */
   initialConfig = CookieLngDetection(initOptI18N);
-  i18next
-    .use(i18nextHttpBackend)
-    .init(initialConfig);
+  i18next.use(i18nextHttpBackend).init(initialConfig);
 } catch (err) {
   initialConfig = CookieLngDetection(inizializationDefault);
-  i18next
-    .use(i18nextHttpBackend)
-    .init(initialConfig);
+  i18next.use(i18nextHttpBackend).init(initialConfig);
 }
 /* END INITIALIZATION */
 
 Logger(`CONFIGURATION IN USE: ${initialConfig}`);
 
 function updateContent() {
-  _PerformanceTests("start");
+  if (initialConfig.testScripts) _PerformanceTests("start");
   stopObserving();
   try {
     /* gets all elements that needs some kind of translation */
@@ -39,7 +35,7 @@ function updateContent() {
   } catch (err) {
     throw new Error(err);
   }
-  _PerformanceTests("stop");
+  if (initialConfig.testScripts) _PerformanceTests("stop");
 }
 
 function changeLng(lng) {
