@@ -155,3 +155,26 @@ $ npm run build
   alt="Hi in English"
 ></div>
 ```
+### Additional Tag Options
+
+#### Input HTML
+
+- Adding a number after key translation will maintain node number of where the translation will go 
+
+```html
+<div data-lang="T_saluto;1" style="border:1px solid green">
+    <div style="border:1px solid green">Text no translation 1</div>
+    Text to be translated
+    <div style="border:1px solid green">Text no translation 2</div>
+</div>
+```
+
+#### Output HTML
+
+```html
+<div data-lang="T_saluto;1" style="border:1px solid green">
+    <div style="border:1px solid green">Text no translation 1</div>
+    Hi in English
+    <div style="border:1px solid green">Text no translation 2</div>
+</div>
+```
