@@ -15,19 +15,22 @@
     <!-- Personalized Scripts -->
     <script>
         const initOptI18N = {
-            fallbackLng: "it",
-            ns: ["common"],
-            debug: false,
-            defaultNS: "common",
+            /* lng: "it", */
+            fallbackLng: 'it',
+            debug: true,
+            whiteList: ['it', 'en'],
+            ns: "translation",
             backend: {
                 // load from i18next-gitbook repo
-                loadPath: "../I18N/{{lng}}/{{ns}}.json",
+                loadPath: "./I18N/{{lng}}/{{ns}}.json",
                 crossDomain: true,
-            }
+            },
         };
     </script>
     <script src="./assets/js/mainI18N.config.js"></script>
+    <script src="./assets/js/attributeManager.js"></script>
     <script src="./assets/js/mainI18N.js"></script>
+
     <script src="./assets/js/testing_scripts.js"></script>
 
 
@@ -42,9 +45,25 @@
             italian
         </button>
         <hr />
-        <input data-lang-alt="T_saluto" data-lang-placeholder="T_info"></input>
+
+        <input data-lang data-lang-alt="T_saluto" data-lang-placeholder="T_info"></input>
         <div data-lang="T_info"></div>
+
         <hr />
+
+        <div data-lang="T_saluto" style="border:1px solid green">
+            <div style="border:1px solid green">Testo da non tradurre 1</div>
+            TESTO DA TRADURRE
+            <div style="border:1px solid green">Testo da non tradurre 2</div>
+        </div>
+
+        <hr />
+
+        <div data-lang="T_saluto;1" style="border:1px solid green">
+            <div style="border:1px solid green">Testo da non tradurre 1</div>
+            TESTO DA TRADURRE
+            <div style="border:1px solid green">Testo da non tradurre 2</div>
+        </div>
         <!--   <div data-lang="T_info"></div> -->
 
         <div id="automationTranslation">
