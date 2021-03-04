@@ -12,24 +12,27 @@ try {
 }
 /* END INITIALIZATION */
 
-Logger(`CONFIGURATION IN USE: ${initialConfig}`);
+Logger(["CONFIGURATION IN USE:", initialConfig]);
 
 function updateContent() {
   if (initialConfig.testScripts) _PerformanceTests("start");
   stopObserving();
   try {
     /* gets all elements that needs some kind of translation */
-    let elList = document.querySelectorAll(`[data-lang]`);
+    let elList = document.body.querySelectorAll("[data-lang]");
+    /* just for IE */
+    elList = Array.from(elList);
 
-    elList.forEach((elem, i) => {
+    elList.forEach(function (elem, i) {
       manageElementDataAttribute(elem, "lang");
     });
 
-    Logger(
-      `detected user language: "${
-        i18next.language
-      }" --> loaded languages: "${initialConfig.whiteList.join(", ")}"`
-    );
+    Logger([
+      "detected user language: ",
+      i18next.language,
+      " --> loaded languages: ",
+      initialConfig.whiteList.join(", "),
+    ]);
 
     startObserving();
   } catch (err) {
@@ -48,12 +51,12 @@ i18next.on("initialized", function (options) {
   updateContent();
 });
 
-i18next.on("languageChanged", (lang) => {
+i18next.on("languageChanged", function (lang) {
   updateContent();
 });
 
 i18next.on("loaded", function (loaded) {
-  Logger("new resource loaded:" + loaded);
+  Logger(["new resource loaded:", loaded]);
 });
 
 /* END I18N EVENTS  */
@@ -66,10 +69,10 @@ i18next.on("loaded", function (loaded) {
 var mutationObserver;
 var observing = false;
 function startObserving() {
-  Logger("STARTED Observing...");
+  Logger(["STARTED Observing..."]);
   mutationObserver = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
-      Logger(mutation);
+      Logger([mutation]);
       updateContent();
     });
   });
@@ -88,15 +91,17 @@ function startObserving() {
 }
 
 function stopObserving() {
-  Logger("STOPED Observing...");
+  Logger(["STOPED Observing..."]);
   if (observing) mutationObserver.disconnect();
   observing = false;
 }
 
-function Logger(message) {
+function Logger(messages) {
   /* if debug is set to be true then logg  */
   if (initialConfig && initialConfig.debug) {
-    console.log(message);
+    messages.forEach(function (mes) {
+      console.log(mes);
+    });
   }
 }
 

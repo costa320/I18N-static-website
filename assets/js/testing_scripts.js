@@ -9,7 +9,7 @@ setInterval(() => {
   Logger("added Element");
 }, 7000); */
 
-function _dynamicElements(numElements = 0) {
+function _dynamicElements(numElements) {
   if (numElements) {
     var msgContainer = document.createDocumentFragment();
 
@@ -29,16 +29,16 @@ function _dynamicElements(numElements = 0) {
 
 function _setInterval() {
   if (autTran) {
-    setInterval(() => {
+    setInterval(function () {
       let newEl = document.createElement("div");
       newEl.setAttribute("data-lang", "T_info");
       autTran.append(newEl);
-      Logger("added Element");
+      Logger(["added Element"]);
     }, 7000);
   }
 }
 
-function _PerformanceTests(_event = "start", logText) {
+function _PerformanceTests(_event, logText) {
   if (initialConfig.debug) {
     switch (_event) {
       case "start":

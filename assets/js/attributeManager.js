@@ -2,7 +2,7 @@ function manageElementDataAttribute(elem, datasetKey) {
   /* get clean dataset of the element */
   let dataset = sortElementDataAttribute(elem, datasetKey);
 
-  Object.keys(dataset).forEach((key) => {
+  Object.keys(dataset).forEach(function (key) {
     if (key === datasetKey) {
       /* default case es. data-lang */
       let opt = dataset[key].split(";");
@@ -21,26 +21,32 @@ function manageElementDataAttribute(elem, datasetKey) {
 
 function defaultCase(elem, dataset, key, position) {
   /* by using position, the translation will be positioned accordingly */
-  let nodeList = [...elem.querySelectorAll("*")];
+  let nodeList = elem.querySelectorAll("*");
+  /* just for IE */
+  nodeList = Array.from(nodeList);
 
   if (position === 0) {
     /* translation will be positioned as first node inside elem herarchy */
-    elem.textContent = i18next.t(`${dataset[key]}`);
-    nodeList.forEach((node) => elem.appendChild(node));
+    elem.textContent = i18next.t(dataset[key]);
+    nodeList.forEach(function (node) {
+      return elem.appendChild(node);
+    });
   } else {
     /* translation will be positioned as position option is set */
     /* split the nodeList present now */
     let start = nodeList.slice(0, position);
     let end = nodeList.slice(position, nodeList.length);
     /* create a txt node with the translation */
-    let txtNode = document.createTextNode(i18next.t(`${dataset[key]}`));
+    let txtNode = document.createTextNode(i18next.t(dataset[key]));
     start.push(txtNode);
     /* put all together */
     nodeList = start.concat(end);
     /* clean the element */
     elem.textContent = "";
     /* add all nodes to the dome in order */
-    nodeList.forEach((node) => elem.appendChild(node));
+    nodeList.forEach(function (node) {
+      return elem.appendChild(node);
+    });
   }
 }
 
@@ -51,20 +57,20 @@ function advancedCase(elem, dataset, key) {
   let attributes = key.split(/(?=[A-Z])/);
 
   /* try to create all attributes one by one */
-  attributes.forEach((OptionalAttr, i) => {
+  attributes.forEach(function (OptionalAttr, i) {
     if (i !== 0) {
-      elem[OptionalAttr.toLowerCase()] = i18next.t(`${dataset[key]}`);
+      elem[OptionalAttr.toLowerCase()] = i18next.t(dataset[key]);
     }
   });
 }
 
 /* this function will decide how the element will be translated and managed */
 function sortElementDataAttribute(elem, datasetKey) {
-  let dataset = Object.keys(elem.dataset).filter((dSet) => {
+  let dataset = Object.keys(elem.dataset).filter(function (dSet) {
     return dSet.substring(0, datasetKey.length) === datasetKey;
   });
   let purifiedDataset = {};
-  dataset.forEach((langKey) => {
+  dataset.forEach(function (langKey) {
     purifiedDataset[langKey] = elem.dataset[langKey];
   });
   return purifiedDataset;
