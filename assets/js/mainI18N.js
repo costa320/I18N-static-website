@@ -99,9 +99,7 @@ function stopObserving() {
 function Logger(messages) {
   /* if debug is set to be true then logg  */
   if (initialConfig && initialConfig.debug) {
-    messages.forEach(function (mes) {
-      console.log(mes);
-    });
+    console.log(messages);
   }
 }
 
@@ -138,7 +136,7 @@ function getCookie(cname) {
   return "";
 }
 
-function setCookie(cName, cValue) {
+function setCookie(cName, cValue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   var expires = "expires=" + d.toUTCString();
