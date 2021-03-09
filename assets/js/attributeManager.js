@@ -1,3 +1,4 @@
+/* version 2.6 */
 function manageElementDataAttribute(elem, datasetKey) {
   /* get clean dataset of the element */
   let dataset = sortElementDataAttribute(elem, datasetKey);
@@ -10,8 +11,14 @@ function manageElementDataAttribute(elem, datasetKey) {
       if (opt.length > 1) {
         /* clean the dataset(eg. T_saluto;1) and parseInt optional position */
         dataset[key] = dataset[key].split(";")[0];
-        defaultCase(elem, dataset, key, parseInt(opt[1]));
-      } else defaultCase(elem, dataset, key, 0);
+        /* if the key is different from its translation do the whole process of translation, if not dont translate */
+        if (dataset[key] !== i18next.t(dataset[key]))
+          defaultCase(elem, dataset, key, parseInt(opt[1]));
+      } else {
+        /* if the key is different from its translation do the whole process of translation, if not dont translate */
+        if (dataset[key] !== i18next.t(dataset[key]))
+          defaultCase(elem, dataset, key, 0);
+      }
     } else {
       /* advanced case es. data-lang-alt */
       advancedCase(elem, dataset, key);

@@ -1,3 +1,4 @@
+/* version 2.6 */
 var initialConfig;
 /* END CONFIGURATION */
 
