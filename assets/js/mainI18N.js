@@ -6,10 +6,10 @@ var initialConfig;
 try {
     /* if it cant retriev enough configuration then will retry with "inizializationDefault" */
     initialConfig = CookieLngDetection(initOptI18N);
-    i18next.use(i18nextHttpBackend).init(initialConfig);
+    i18next.use(i18nextChainedBackend).init(initialConfig);
 } catch (err) {
     initialConfig = CookieLngDetection(inizializationDefault);
-    i18next.use(i18nextHttpBackend).init(initialConfig);
+    i18next.use(i18nextChainedBackend).init(initialConfig);
 }
 /* END INITIALIZATION */
 

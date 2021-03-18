@@ -17,6 +17,10 @@
         </script>
     <script src="../assets/libs/i18next.19.8.7.js"></script>
     <script src="../assets/libs/i18nextHttpBackend.1.1.0.js"></script>
+
+    <script src="../assets/libs/i18nextChainedBackend.min.js"></script>
+    <script src="../assets/libs/i18nextLocalStorageBackend.min.js"></script>
+
     <!-- Personalized Scripts -->
     <script>
         const initOptI18N = {
@@ -25,11 +29,22 @@
             debug: true,
             whiteList: ['it', 'en'],
             ns: "translation",
+
+
             backend: {
-                // load from i18next-gitbook repo
-                loadPath: "./I18N/{{lng}}/{{ns}}.json",
-                crossDomain: true,
+                backends: [
+                    i18nextLocalStorageBackend,
+                    i18nextHttpBackend
+                ],
+                backendOptions: [{
+                    expirationTime: 5 * 60000 // 1 min = 60.000 millisecondi
+                }, {
+                    loadPath: './I18N/{{lng}}/{{ns}}.json'
+
+                }]
             },
+
+
             testScripts: false
         };
     </script>
@@ -71,7 +86,7 @@
             TESTO DA TRADURRE
             <div style="border:1px solid green">Testo da non tradurre 2</div>
         </div>
-           <div data-lang="CHIAVE" data-lang-title="T_saluto">CHIAVE TRADUZIONE NON TROVATA</div> 
+        <div data-lang="CHIAVE" data-lang-title="CHIAVE" title="NON SOSTITUIRE">CHIAVE TRADUZIONE NON TROVATA</div>
 
         <div id="automationTranslation">
 
