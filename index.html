@@ -37,11 +37,13 @@
                     i18nextHttpBackend
                 ],
                 backendOptions: [{
-                    expirationTime: 5 * 60000 // 1 min = 60.000 millisecondi
-                }, {
-                    loadPath: './I18N/{{lng}}/{{ns}}.json'
-
-                }]
+                        expirationTime: 5 * 60000, // 1 min = 60.000 millisecondi
+                        store: window.sessionStorage
+                    },
+                    {
+                        loadPath: './I18N/{{lng}}/{{ns}}.json',
+                    }
+                ]
             },
 
 
